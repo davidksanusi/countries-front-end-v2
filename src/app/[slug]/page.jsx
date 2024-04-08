@@ -8,6 +8,7 @@ export async function generateStaticParams() {
   // and then it will be cached for future requests
 
   const routes = [
+    "countries",
     "north-american-countries",
     "french-speaking-countries",
   ];
