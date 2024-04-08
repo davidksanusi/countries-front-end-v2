@@ -3,11 +3,11 @@ import Navbar from "./Navbar";
 import Feedback from "./feedback";
 import Footer from "./footer";
 
-const HomaPage = () => {
+const HomaPage = ({countries}) => {
   return (
     <>
       <Navbar />
-      <Main />
+      <Main countriesData={countries}/>
       <Feedback />
       <Footer />
     </>
