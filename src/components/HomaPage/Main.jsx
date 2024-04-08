@@ -27,8 +27,12 @@ const Main = ({ countriesData }) => {
   const [landlocked, setLandlocked] = useState(
     countriesData?.data?.query_params?.filter_params?.landlocked || null
   );
-  const [sort_category, setSortCategory] = useState("");
-  const [sort_order, setSortOrder] = useState("");
+  const [sort_category, setSortCategory] = useState(
+    countriesData?.data?.query_params?.sort_params?.sort_category || ""
+  );
+  const [sort_order, setSortOrder] = useState(
+    countriesData?.data?.query_params?.sort_params?.sort_order || ""
+  );
   const [countries, setCountries] = useState(countriesData || []);
   const [loading, setLoading] = useState(false);
 
