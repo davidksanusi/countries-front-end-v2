@@ -17,9 +17,10 @@ export async function generateStaticParams() {
   }
 
   const data = await response.json();
-  return data.data.map((item) => ({
+  const staticParams = data.data.map((item) => ({
     name: item,
   }));
+  return staticParams;
 }
 
 export const dynamic = "force-static";
@@ -72,7 +73,7 @@ const Overview = async ({ params }) => {
       <Navbar />
       <div className="px-4 md:px-6 lg:px-24 xl:px-40 py-6 flex flex-col">
         <p className="font-black leading-normal text-[#0D121C] text-4xl py-4">
-          {countryData.name}
+          {countryData?.name}
         </p>
 
         <OverviewTabs content_pages={countryData?.content_pages} />
@@ -108,11 +109,11 @@ const Overview = async ({ params }) => {
                 <Image alt="" src={"/question.png"} height={48} width={48} />
                 <div className="flex flex-col gap-2">
                   <p className="text-[#121417] text-base font-medium leading-normal">
-                    {item.question}
+                    {item?.question}
                   </p>
 
                   <p className="text-[#61788A] text-sm font-normal leading-normal">
-                    {item.answer}
+                    {item?.answer}
                   </p>
                 </div>
               </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { Tabs } from "antd";
+import { Empty, Tabs } from "antd";
 
 export function OverviewTabs({ content_pages }) {
   const { TabPane } = Tabs;

@@ -114,7 +114,6 @@ const Main = ({ countriesData }) => {
     sort_category,
     sort_order,
   ]);
-  console.log("coun", countries);
 
   // Function to handle filter change
   const handleSelectValue = (filter, value) => {
