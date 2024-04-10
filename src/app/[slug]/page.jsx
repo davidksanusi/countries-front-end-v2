@@ -13,6 +13,7 @@ export async function generateStaticParams() {
   const staticParams = data.data.map((slug) => ({
     slug,
   }));
+
   return staticParams;
 }
 

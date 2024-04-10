@@ -1,4 +1,5 @@
 "use client";
+
 import { Skeleton } from "antd";
 import { useEffect, useRef, useState } from "react";
 import { FilterComponent } from "../filters";

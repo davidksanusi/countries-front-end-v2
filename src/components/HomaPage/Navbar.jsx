@@ -1,4 +1,5 @@
 "use client";
+
 import Image from "next/image";
 import { Input, Button } from "antd";
 import "../../app/globals.css";
