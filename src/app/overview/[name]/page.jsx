@@ -38,7 +38,8 @@ async function fetchCountryData(slug) {
   );
 
   if (!response.ok) {
-    throw new Error("Failed to fetch data");
+    console.log("Failed to fetch data for country", slug);
+    return null;
   }
 
   const data = await response.json();
@@ -60,8 +61,6 @@ async function fetchRandomNames() {
 
 const Overview = async ({ params }) => {
   const { name } = params;
-
-  console.log(params);
 
   const [countryData, randomNamesData] = await Promise.all([
     fetchCountryData(name),

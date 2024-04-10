@@ -62,7 +62,6 @@ export const FilterComponent = ({
     { label: 'Ascending', value: 'asc' },
     { label: 'Descending', value: 'desc' }
   ];
-  console.log('land',landlocked)
 
   return (
     <div className="flex flex-wrap justify-center items-center gap-3 w-[95vw]">
