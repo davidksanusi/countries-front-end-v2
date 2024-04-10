@@ -1,6 +1,5 @@
 "use client";
 import { Skeleton } from "antd";
-import { useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { FilterComponent } from "../filters";
 import CountryCard from "./countryCard";
@@ -38,13 +37,8 @@ const Main = ({ countriesData }) => {
 
   const firstRender = useRef(true);
 
-  const searchParams = useSearchParams();
-  console.log("slug_input", searchParams?.get("slug_input"));
-  const slug = searchParams?.get("slug_input");
-
   useEffect(() => {
     const fetchCountries = async () => {
-
       console.log("fetching countries");
 
       try {
@@ -52,27 +46,22 @@ const Main = ({ countriesData }) => {
 
         let requestBody = {};
 
-        // Add slug_input to request body if it's present in the URL
-        if (slug) {
-          requestBody.slug = slug;
-        } else {
-          // Prepare the request body with filters
-          requestBody = {
-            filter_params: {
-              continents,
-              languages,
-              currency,
-              borders,
-              independent,
-              UN_member,
-              landlocked,
-            },
-            sort_params: {
-              sort_category,
-              sort_order,
-            },
-          };
-        }
+        // Prepare the request body with filters
+        requestBody = {
+          filter_params: {
+            continents,
+            languages,
+            currency,
+            borders,
+            independent,
+            UN_member,
+            landlocked,
+          },
+          sort_params: {
+            sort_category,
+            sort_order,
+          },
+        };
 
         // Remove null or undefined values from the request body
         requestBody = Object.fromEntries(

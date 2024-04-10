@@ -3,9 +3,6 @@ import { unstable_cache as cache } from "next/cache";
 import { redirect } from "next/navigation";
 
 export async function generateStaticParams() {
-  // all these pages will be generated at build time, you can add more routes
-  // if other then these routes were accessed, it will be generated dynamically
-  // and then it will be cached for future requests
 
   const routes = [
     "countries",
@@ -17,6 +14,10 @@ export async function generateStaticParams() {
     slug,
   }));
 }
+
+export const dynamic = 'force-static';
+export const dynamicParams = true;
+
 
 async function getCountries(slug) {
   const response = await fetch(
@@ -41,19 +42,9 @@ async function getCountries(slug) {
   return response.json();
 }
 
-const cachedCountriesData = cache(
-  async (slug) => getCountries(slug),
-  ["countries"],
-);
-
 export default async function Home({ params }) {
   const { slug } = params;
-
-  if (!slug) {
-    redirect("/countries");
-  }
-
-  const data = await cachedCountriesData(slug);
+  const data = await getCountries(slug);
 
   return <HomaPage countries={data} />;
 }
