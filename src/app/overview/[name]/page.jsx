@@ -67,9 +67,6 @@ const Overview = async ({ params }) => {
     fetchRandomNames(),
   ]);
 
-  console.log(countryData);
-  console.log(randomNamesData);
-
   return (
     <>
       <Navbar />
