@@ -16,49 +16,48 @@ export const FilterComponent = ({
   sort_category,
   sort_order,
   clearFilter,
+  initialFiltersData,
 }) => {
-  // Dummy options for select dropdowns
-  const continentOptions = [
-    { label: "Asia", value: "Asia" },
-    { label: "Africa", value: "Africa" },
-    { label: "Europe", value: "Europe" },
-    { label: "North America", value: "North America" },
-    { label: "South America", value: "South America" },
-    { label: "Oceania", value: "Oceania" },
-  ];
-  const languageOptions = [
-    { label: "English", value: "English" },
-    { label: "Spanish", value: "Spanish" },
-    { label: "French", value: "French" },
-    { label: "Chinese", value: "Chinese" },
-    { label: "Hindi", value: "Hindi" },
-    { label: "Arabic", value: "Arabic" },
-  ];
-  const currencyOptions = [
-    { label: "USD", value: "USD" },
-    { label: "EUR", value: "EUR" },
-    { label: "GBP", value: "GBP" },
-    { label: "JPY", value: "JPY" },
-    { label: "CNY", value: "CNY" },
-    { label: "INR", value: "INR" },
-  ];
-  const borderOptions = [
-    { label: "CHN", value: "CHN" },
-    { label: "USA", value: "USA" },
-    { label: "IND", value: "IND" },
-    { label: "CAN", value: "CAN" },
-    { label: "MEX", value: "MEX" },
-    { label: "RUS", value: "RUS" },
-  ];
+  const data = initialFiltersData?.data;
+
+  const continentOptions = data?.filter_options
+    ?.find((item) => item.filter_key === "continents")
+    ?.filter_params.map((param) => ({
+      label: param.param_value,
+      value: param.param_key,
+    }));
+
+  const languageOptions = data?.filter_options
+    ?.find((item) => item.filter_key === "languages")
+    ?.filter_params.map((param) => ({
+      label: param.param_value,
+      value: param.param_key,
+    }));
+
+  const currencyOptions = data?.filter_options
+    ?.find((item) => item.filter_key === "currency")
+    ?.filter_params.map((param) => ({
+      label: param.param_value,
+      value: param.param_key,
+    }));
+
+  const borderOptions = data?.filter_options
+    ?.find((item) => item.filter_key === "borders")
+    ?.filter_params.map((param) => ({
+      label: param.param_value,
+      value: param.param_key,
+    }));
+
   const booleanOptions = [
     { label: "Yes", value: "Yes" },
     { label: "No", value: "No" },
   ];
-  const sortCategoryOptions = [
-    { label: "GDP per capita", value: "gdp_per_capita" },
-    { label: "Population", value: "population" },
-    { label: "Area", value: "area" },
-  ];
+
+  const sortCategoryOptions = data?.sort_options?.map((param) => ({
+    label: param.param_key,
+    value: param.param_value,
+  }));
+
   const sortOrderOptions = [
     { label: "Ascending", value: "asc" },
     { label: "Descending", value: "desc" },
@@ -70,9 +69,10 @@ export const FilterComponent = ({
         Continent :
         <Select
           className="min-w-[130px] bg-[#e5e5e5] rounded-xl"
+          showSearch
           onChange={(e) => handleSelectValue("continents", e)}
           variant="filled"
-          style={{ flex: 1 }}
+          style={{ flex: 1, minWidth: "130px" }}
           options={continentOptions}
           value={continents}
         />
@@ -88,9 +88,10 @@ export const FilterComponent = ({
         Language:
         <Select
           className="min-w-[100px] bg-[#e5e5e5] rounded-xl"
+          showSearch
           onChange={(e) => handleSelectValue("languages", e)}
           variant="filled"
-          style={{ flex: 1 }}
+          style={{ flex: 1, width: "150px" }}
           options={languageOptions}
           value={languages}
         />
@@ -106,9 +107,10 @@ export const FilterComponent = ({
         Currency :
         <Select
           className="min-w-[80px] bg-[#e5e5e5] rounded-xl"
+          showSearch
           onChange={(e) => handleSelectValue("currency", e)}
           variant="filled"
-          style={{ flex: 1 }}
+          style={{ flex: 1, width: "220px" }}
           options={currencyOptions}
           value={currency}
         />
@@ -124,9 +126,10 @@ export const FilterComponent = ({
         Border :
         <Select
           className="min-w-[80px] bg-[#e5e5e5] rounded-xl"
+          showSearch
           onChange={(e) => handleSelectValue("borders", e)}
           variant="filled"
-          style={{ flex: 1 }}
+          style={{ flex: 1, width: "150px" }}
           options={borderOptions}
           value={borders}
         />
@@ -142,6 +145,7 @@ export const FilterComponent = ({
         Independent :
         <Select
           className="min-w-[70px] bg-[#e5e5e5] rounded-xl"
+          showSearch
           onChange={(e) => handleSelectValue("independent", e)}
           variant="filled"
           style={{ flex: 1 }}
@@ -160,6 +164,7 @@ export const FilterComponent = ({
         UN Member :
         <Select
           className="min-w-[70px] bg-[#e5e5e5] rounded-xl"
+          showSearch
           onChange={(e) => handleSelectValue("UN_member", e)}
           variant="filled"
           style={{ flex: 1 }}

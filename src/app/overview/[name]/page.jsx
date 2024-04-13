@@ -20,7 +20,7 @@ export async function generateStaticParams() {
   const staticParams = data.data.map((item) => ({
     name: item,
   }));
-  return staticParams;
+  return staticParams.slice(0, 5);
 }
 
 export const dynamic = "force-static";
