@@ -34,7 +34,7 @@ export default async function sitemap() {
   }));
 
   const countriesSlugsPaths = countriesSlugs.map((slug) => ({
-    url: `${domain}/overview/${slug}`,
+    url: `${domain}/country/${slug}/overview`,
     priority: 0.8,
   }));
 
