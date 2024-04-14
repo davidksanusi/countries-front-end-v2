@@ -1,4 +1,4 @@
-const baseURL = "https://galileo-countries-xoqh.vercel.app";
+import { domain } from "@/lib/utils";
 
 async function getFilterSlugs() {
   const response = await fetch(
@@ -29,17 +29,17 @@ export default async function sitemap() {
   const countriesSlugs = await getCountriesSlugs();
 
   const filterSlugsPaths = filterSlugs.map((slug) => ({
-    url: `${baseURL}/${slug}`,
+    url: `${domain}/${slug}`,
     priority: 0.8,
   }));
 
   const countriesSlugsPaths = countriesSlugs.map((slug) => ({
-    url: `${baseURL}/overview/${slug}`,
+    url: `${domain}/overview/${slug}`,
     priority: 0.8,
   }));
 
   const rootPath = {
-    url: baseURL,
+    url: domain,
     priority: 1,
   };
 
