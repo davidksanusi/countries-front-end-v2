@@ -1,9 +1,7 @@
 import { unstable_cache as cache } from "next/cache";
 import seedrandom from "seedrandom";
 
-export async function getCountryData(name) {
-  console.log("Fetching data for country", name);
-
+async function getCountryData(name) {
   const response = await fetch(
     "https://countries-backend-y8w2.onrender.com/api/post_country",
     {
@@ -20,16 +18,18 @@ export async function getCountryData(name) {
     return null;
   }
 
+  console.log("Fetched data for country", name);
+
   const data = await response.json();
   return data.data;
 }
 
-export const getCachedCountryData = (name) =>
-  cache(async () => await getCountryData(name), [`country-${name}`])(name);
+export const getCachedCountryData = cache(
+  async (name) => await getCountryData(name),
+  ["single-country"]
+);
 
 async function getAllCountries() {
-  console.log("Fetching all countries");
-
   const response = await fetch(
     "https://countries-backend-y8w2.onrender.com/api/search",
     {
@@ -44,6 +44,8 @@ async function getAllCountries() {
   if (!response.ok) {
     throw new Error("Failed to fetch data");
   }
+
+  console.log("Fetched all countries");
 
   return response.json();
 }
@@ -76,8 +78,6 @@ export async function getRandomCountries(count, seed) {
 }
 
 async function getFilters() {
-  console.log("Fetching filters data");
-
   const response = await fetch(
     "https://countries-backend-y8w2.onrender.com/api/get_filters",
     {
@@ -90,6 +90,7 @@ async function getFilters() {
   if (!response.ok) {
     throw new Error("Failed to fetch filters data");
   }
+  console.log("Fetched filters data");
 
   return response.json();
 }
@@ -100,8 +101,6 @@ export const getCachedFilters = cache(
 );
 
 async function getCountries(slug) {
-  console.log("Fetching filtered countries for slug:", slug);
-
   const response = await fetch(
     "https://countries-backend-y8w2.onrender.com/api/filter_names",
     {
@@ -116,6 +115,8 @@ async function getCountries(slug) {
   if (!response.ok) {
     throw new Error("Failed to fetch data");
   }
+
+  console.log("Fetched filtered countries for slug:", slug);
 
   return response.json();
 }

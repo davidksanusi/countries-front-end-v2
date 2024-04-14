@@ -9,14 +9,9 @@ import Link from "next/link";
 import "../../../globals.css";
 
 import { getCachedCountryData, getRandomCountries } from "@/lib/data";
-import { unstable_cache } from "next/cache";
 
 export default async function CountryPageLayout({ params, children }) {
   const { name } = params;
-
-  // const countryData = await unstable_cache(getCachedCountryData, [
-  //   `country-${name}`,
-  // ])(name);
 
   const countryData = await getCachedCountryData(name);
 
