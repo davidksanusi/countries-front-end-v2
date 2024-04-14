@@ -1,10 +1,8 @@
-"use server";
-
-import { unstable_cache } from "next/cache";
+import { unstable_cache as cache } from "next/cache";
 import seedrandom from "seedrandom";
 
-async function getCountryData(slug) {
-  console.log("Fetching data for country", slug);
+export async function getCountryData(name) {
+  console.log("Fetching data for country", name);
 
   const response = await fetch(
     "https://countries-backend-y8w2.onrender.com/api/post_country",
@@ -13,12 +11,12 @@ async function getCountryData(slug) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ code: slug }),
+      body: JSON.stringify({ code: name }),
     }
   );
 
   if (!response.ok) {
-    console.log("Failed to fetch data for country", slug);
+    console.log("Failed to fetch data for country", name);
     return null;
   }
 
@@ -26,10 +24,8 @@ async function getCountryData(slug) {
   return data.data;
 }
 
-export const getCachedCountryData = unstable_cache(
-  async (slug) => await getCountryData(slug),
-  ["country-data"]
-);
+export const getCachedCountryData = (name) =>
+  cache(async () => await getCountryData(name), [`country-${name}`])(name);
 
 async function getAllCountries() {
   console.log("Fetching all countries");
@@ -42,7 +38,6 @@ async function getAllCountries() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ query: "" }),
-      cache: "force-cache",
     }
   );
 
@@ -53,7 +48,7 @@ async function getAllCountries() {
   return response.json();
 }
 
-export const getCachedAllCountries = unstable_cache(
+export const getCachedAllCountries = cache(
   async () => await getAllCountries(),
   ["all-countries"]
 );
@@ -81,13 +76,14 @@ export async function getRandomCountries(count, seed) {
 }
 
 async function getFilters() {
+  console.log("Fetching filters data");
+
   const response = await fetch(
     "https://countries-backend-y8w2.onrender.com/api/get_filters",
     {
       headers: {
         "Content-Type": "application/json",
       },
-      cache: "force-cache",
     }
   );
 
@@ -98,9 +94,14 @@ async function getFilters() {
   return response.json();
 }
 
-export const getCachedFilters = unstable_cache(getFilters, ["filters"]);
+export const getCachedFilters = cache(
+  async () => await getFilters(),
+  ["filters"]
+);
 
 async function getCountries(slug) {
+  console.log("Fetching filtered countries for slug:", slug);
+
   const response = await fetch(
     "https://countries-backend-y8w2.onrender.com/api/filter_names",
     {
@@ -109,7 +110,6 @@ async function getCountries(slug) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ slug: slug }),
-      cache: "force-cache",
     }
   );
 
@@ -120,7 +120,7 @@ async function getCountries(slug) {
   return response.json();
 }
 
-export const getCachedFilteredCountries = unstable_cache(
+export const getCachedFilteredCountries = cache(
   async (slug) => await getCountries(slug),
   ["filtered-countries"]
 );

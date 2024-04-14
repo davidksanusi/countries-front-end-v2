@@ -32,13 +32,17 @@ export async function generateStaticParams() {
     }
   }
 
-  return staticParams;
+  return staticParams.slice(0, 90);
 }
 
 export const dynamic = "force-static";
 
 export default async function CountryPage({ params }) {
   const { name, section } = params;
+
+  // const data = await unstable_cache(getCachedCountryData, [`country-${name}`])(
+  //   name
+  // );
   const data = await getCachedCountryData(name);
 
   const sectionData = data?.content_pages?.find(

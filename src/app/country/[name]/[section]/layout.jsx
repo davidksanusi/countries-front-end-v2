@@ -9,14 +9,18 @@ import Link from "next/link";
 import "../../../globals.css";
 
 import { getCachedCountryData, getRandomCountries } from "@/lib/data";
+import { unstable_cache } from "next/cache";
 
 export default async function CountryPageLayout({ params, children }) {
   const { name } = params;
 
-  const [countryData, randomCountries] = await Promise.all([
-    getCachedCountryData(name),
-    getRandomCountries(5, name),
-  ]);
+  // const countryData = await unstable_cache(getCachedCountryData, [
+  //   `country-${name}`,
+  // ])(name);
+
+  const countryData = await getCachedCountryData(name);
+
+  const randomCountries = await getRandomCountries(5, name);
 
   const sections = countryData?.content_pages?.map((item) => ({
     title: item?.title,
@@ -31,7 +35,6 @@ export default async function CountryPageLayout({ params, children }) {
           {countryData?.name}
         </p>
 
-        {/* <OverviewTabs content_pages={countryData?.content_pages} /> */}
         <SectionNav sections={sections} />
 
         {children}
