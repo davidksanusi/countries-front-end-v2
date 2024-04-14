@@ -1,54 +1,21 @@
 import Feedback from "@/components/HomaPage/feedback";
+import Footer from "@/components/HomaPage/footer";
 import Navbar from "@/components/HomaPage/Navbar";
 import { Categories } from "@/components/Overview/Categories";
-import OverviewFooter from "@/components/Overview/footer";
+import { SectionNav } from "@/components/Overview/SectionsNav";
+import { slugify } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import "../../../globals.css";
-import { SectionNav } from "@/components/Overview/SectionsNav";
-import { slugify } from "@/lib/utils";
-import Footer from "@/components/HomaPage/footer";
 
-async function fetchCountryData(slug) {
-  const response = await fetch(
-    "https://countries-backend-y8w2.onrender.com/api/post_country",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ code: slug }),
-    }
-  );
-
-  if (!response.ok) {
-    console.log("Failed to fetch data for country", slug);
-    return null;
-  }
-
-  const data = await response.json();
-  return data.data;
-}
-
-async function fetchRandomNames() {
-  const randomState = Math.random().toString(36).substring(7);
-  const response = await fetch(
-    `https://countries-backend-y8w2.onrender.com/api/get_random_countries?state=${randomState}`
-  );
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch data");
-  }
-
-  return await response.json();
-}
+import { getCachedCountryData, getRandomCountries } from "@/lib/data";
 
 export default async function CountryPageLayout({ params, children }) {
   const { name } = params;
 
-  const [countryData, randomNamesData] = await Promise.all([
-    fetchCountryData(name),
-    fetchRandomNames(),
+  const [countryData, randomCountries] = await Promise.all([
+    getCachedCountryData(name),
+    getRandomCountries(5, name),
   ]);
 
   const sections = countryData?.content_pages?.map((item) => ({
@@ -98,10 +65,9 @@ export default async function CountryPageLayout({ params, children }) {
             Explore Names
           </p>
           <div className="flex gap-3 justify-start items-center overflow-x-scroll noScrollBar w-full">
-            {randomNamesData?.random_countries?.map((item, index) => (
+            {randomCountries?.map((item, index) => (
               <Link
-                // onClick={() => router.push(`/overview/${item.code}`)}
-                href={`/overview/${item.code}`}
+                href={`/country/${item.code}/overview`}
                 key={index}
                 className=" cursor-pointer h-[99px] rounded-xl flex justify-center items-center underline p-6 text-4xl font-bold leading-normal text-white bg-gradient-to-r from-[#383838] to-[#928F8F]"
               >

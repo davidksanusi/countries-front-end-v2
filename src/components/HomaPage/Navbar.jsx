@@ -1,3 +1,4 @@
+import { getCachedAllCountries } from "@/lib/data";
 import { Button } from "antd";
 import Image from "next/image";
 import Link from "next/link";
@@ -5,28 +6,8 @@ import "../../app/globals.css";
 import { AutocompleteSearch } from "./auto-complete";
 import { MobileNav } from "./mobile-nav";
 
-async function getCountries() {
-  const response = await fetch(
-    "https://countries-backend-y8w2.onrender.com/api/search",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ query: "" }),
-      cache: "force-cache",
-    }
-  );
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch data");
-  }
-
-  return response.json();
-}
-
 const Navbar = async () => {
-  const countries = await getCountries();
+  const countries = await getCachedAllCountries();
 
   return (
     <>
