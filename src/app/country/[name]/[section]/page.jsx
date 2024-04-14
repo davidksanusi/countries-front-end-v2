@@ -32,7 +32,7 @@ export async function generateStaticParams() {
     }
   }
 
-  return staticParams.slice(0, 90);
+  return staticParams;
 }
 
 export const dynamic = "force-static";

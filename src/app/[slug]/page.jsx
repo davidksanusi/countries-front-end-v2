@@ -15,7 +15,7 @@ export async function generateStaticParams() {
     slug,
   }));
 
-  return staticParams.slice(0, 10);
+  return staticParams;
 }
 
 export const dynamic = "force-static";
