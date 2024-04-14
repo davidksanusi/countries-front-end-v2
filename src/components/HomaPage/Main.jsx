@@ -40,7 +40,7 @@ const Main = ({ countriesData, filtersData }) => {
 
   const [pagination, setPagination] = useState({
     current: 1,
-    pageSize: 20,
+    pageSize: 40,
   });
 
   const firstRender = useRef(true);

@@ -14,7 +14,7 @@ export const AutocompleteSearch = ({ countries }) => {
 
   const onSelect = (value) => {
     const code = countries.find((country) => country.name === value).code;
-    router.push(`/overview/${code}`);
+    router.push(`/country/${code}/overview`);
   };
 
   const searchResult = (query) => {

@@ -18,7 +18,7 @@ const CountryCard = ({ country, loading }) => {
   }
   return (
     <Link
-      href={country ? `/overview/${country?.code}` : "/"}
+      href={country ? `/country/${country?.code}/overview` : "/"}
       className="cursor-pointer col-span-1 flex h-[56px] w-[300px] rounded-xl p-1 gap-5 flex-col"
     >
       {!loading ? (
