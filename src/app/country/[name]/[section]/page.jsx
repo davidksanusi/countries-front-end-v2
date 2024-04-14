@@ -17,10 +17,10 @@ export async function generateStaticParams() {
 
   const sections = [
     "overview",
-    "education",
-    "economy",
-    "demeographics",
-    "environment",
+    // "education",
+    // "economy",
+    // "demeographics",
+    // "environment",
   ];
 
   for (const item of data.data) {
