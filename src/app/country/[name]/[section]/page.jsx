@@ -55,7 +55,7 @@ export async function generateStaticParams() {
     }
   }
 
-  return staticParams.slice(0, 20);
+  return staticParams;
 }
 
 export const dynamic = "force-static";
@@ -67,6 +67,10 @@ export default async function CountryPage({ params }) {
   const sectionData = data?.content_pages?.find(
     (item) => item.title === unslugify(section)
   );
+
+  if (!sectionData) {
+    return <Empty description="Section not found" />;
+  }
 
   return (
     <>

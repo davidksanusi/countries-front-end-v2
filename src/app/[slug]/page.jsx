@@ -15,7 +15,7 @@ export async function generateStaticParams() {
     slug,
   }));
 
-  return staticParams.slice(0, 5);
+  return staticParams;
 }
 
 export async function getFilters() {
@@ -68,5 +68,5 @@ export default async function Home({ params }) {
     cacheFilters(),
   ]);
 
-  return <HomaPage countries={countries} filters={filters}/>;
+  return <HomaPage countries={countries} filters={filters} />;
 }
