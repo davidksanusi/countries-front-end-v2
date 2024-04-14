@@ -2,28 +2,12 @@ import Feedback from "@/components/HomaPage/feedback";
 import Navbar from "@/components/HomaPage/Navbar";
 import { Categories } from "@/components/Overview/Categories";
 import OverviewFooter from "@/components/Overview/footer";
-import { OverviewTabs } from "@/components/Overview/OverviewTabs";
 import Image from "next/image";
 import Link from "next/link";
-import "../../globals.css";
-
-export async function generateStaticParams() {
-  const response = await fetch(
-    "https://countries-backend-y8w2.onrender.com/api/get_country_slugs"
-  );
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch data");
-  }
-
-  const data = await response.json();
-  const staticParams = data.data.map((item) => ({
-    name: item,
-  }));
-  return staticParams.slice(0, 5);
-}
-
-export const dynamic = "force-static";
+import "../../../globals.css";
+import { SectionNav } from "@/components/Overview/SectionsNav";
+import { slugify } from "@/lib/utils";
+import Footer from "@/components/HomaPage/footer";
 
 async function fetchCountryData(slug) {
   const response = await fetch(
@@ -59,13 +43,18 @@ async function fetchRandomNames() {
   return await response.json();
 }
 
-const Overview = async ({ params }) => {
+export default async function CountryPageLayout({ params, children }) {
   const { name } = params;
 
   const [countryData, randomNamesData] = await Promise.all([
     fetchCountryData(name),
     fetchRandomNames(),
   ]);
+
+  const sections = countryData?.content_pages?.map((item) => ({
+    title: item?.title,
+    slug: slugify(item?.title),
+  }));
 
   return (
     <>
@@ -75,27 +64,10 @@ const Overview = async ({ params }) => {
           {countryData?.name}
         </p>
 
-        <OverviewTabs content_pages={countryData?.content_pages} />
+        {/* <OverviewTabs content_pages={countryData?.content_pages} /> */}
+        <SectionNav sections={sections} />
 
-        {/* Maps section Code */}
-
-        {/* <div className="mt-4 flex gap-5 my-4">
-    {(loading || loading == null) ? (
-          <Skeleton active paragraph={{ rows: 3 }} />
-        ) : <div className="mt-4 flex gap-5">
-        {countryData?.maps.map((mapUrl, index) => (
-          <div key={index} className="mt-4 flex gap-5">
-            <iframe
-              title={`Map ${index + 1}`}
-              src={mapUrl}
-              width="176"
-              height="99"
-             
-            />
-          </div>
-        ))}
-      </div>}
-      </div> */}
+        {children}
 
         {/* FAQs */}
         <div className="flex flex-col gap-3 py-3 my-3 justify-start items-start w-full">
@@ -146,10 +118,8 @@ const Overview = async ({ params }) => {
         <Feedback />
 
         {/* Footer */}
-        <OverviewFooter />
+        <Footer />
       </div>
     </>
   );
-};
-
-export default Overview;
+}
