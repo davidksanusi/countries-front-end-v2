@@ -1,11 +1,13 @@
 "use client";
 
 import { Skeleton } from "antd";
+import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { FilterComponent } from "../filters";
+import { Button } from "../ui/button";
 import CountryCard from "./countryCard";
 
-const Main = ({ countriesData }) => {
+const Main = ({ countriesData, filtersData }) => {
   const [continents, setContinent] = useState(
     countriesData?.data?.query_params?.filter_params?.continents || ""
   );
@@ -35,6 +37,11 @@ const Main = ({ countriesData }) => {
   );
   const [countries, setCountries] = useState(countriesData || []);
   const [loading, setLoading] = useState(false);
+
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 40,
+  });
 
   const firstRender = useRef(true);
 
@@ -149,6 +156,11 @@ const Main = ({ countriesData }) => {
       default:
         break;
     }
+
+    setPagination((prev) => ({
+      ...prev,
+      current: 1,
+    }));
   };
 
   // Function to clear all filters
@@ -162,6 +174,11 @@ const Main = ({ countriesData }) => {
     setLandlocked(null);
     setSortCategory("");
     setSortOrder("");
+
+    setPagination((prev) => ({
+      ...prev,
+      current: 1,
+    }));
   };
   const dummyBabies = new Array(20).fill(null); // Create an array with 8 null elements for dummy cards
 
@@ -200,22 +217,59 @@ const Main = ({ countriesData }) => {
             sort_category={sort_category}
             sort_order={sort_order}
             clearFilter={clearFilter}
+            initialFiltersData={filtersData}
           />
         </div>
-        <div className="px-2 md:px-2 lg:px-2 xl:px-2 grid grid-cols-5 mx-auto gap-5">
+        <div className="px-2 md:px-2 lg:px-2 xl:px-2 grid grid-cols-5 mx-auto gap-5 ">
+          {/* Countries with pagination */}
           {loading ? (
             dummyBabies.map((_, index) => (
               <CountryCard key={index} loading={loading} />
             ))
           ) : countries?.data?.countries?.length > 0 ? (
-            countries?.data?.countries?.map((country, index) => (
-              <CountryCard key={index} country={country} loading={loading} />
-            ))
+            countries?.data?.countries
+              .slice(
+                (pagination.current - 1) * pagination.pageSize,
+                pagination.current * pagination.pageSize
+              )
+              .map((country, index) => (
+                <CountryCard key={index} country={country} loading={loading} />
+              ))
           ) : (
             <div className="text-3xl font-bold text-center w-[70vw] mt-8">
               No Data Found
             </div>
           )}
+        </div>
+        {/* Pagination Buttons */}
+        <div className="px-2 md:px-2 lg:px-2 xl:px-2 flex justify-center items-center gap-4 w-full ">
+          <Button
+            size="icon"
+            onClick={() =>
+              setPagination((prev) => ({
+                ...prev,
+                current: prev.current - 1,
+              }))
+            }
+            disabled={pagination.current === 1}
+          >
+            <ArrowLeftIcon className="size-4" />
+          </Button>
+          <Button
+            size="icon"
+            onClick={() =>
+              setPagination((prev) => ({
+                ...prev,
+                current: prev.current + 1,
+              }))
+            }
+            disabled={
+              pagination.current * pagination.pageSize >=
+              countries?.data?.countries?.length
+            }
+          >
+            <ArrowRightIcon className="size-4" />
+          </Button>
         </div>
       </div>
     </>

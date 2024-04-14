@@ -1,13 +1,14 @@
+import FeedbackForm from "../Feedback";
 import Main from "./Main";
 import Navbar from "./Navbar";
 import Feedback from "./feedback";
 import Footer from "./footer";
 
-const HomaPage = ({ countries }) => {
+const HomaPage = async ({ countries, filters }) => {
   return (
     <>
       <Navbar />
-      <Main countriesData={countries} />
+      <Main countriesData={countries} filtersData={filters} />
       <Feedback />
       <Footer />
     </>

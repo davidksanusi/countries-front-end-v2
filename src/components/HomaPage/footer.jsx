@@ -1,4 +1,5 @@
 import Image from "next/image";
+import NewsletterForm from "../NewsLetter";
 
 const Footer = () => {
   return (
@@ -14,14 +15,29 @@ const Footer = () => {
             Terms of Service
           </p>
         </div>
-        <div className="flex flex-wrap justify-center items-center gap-4">
-          <Image alt="" src={"/icons/fb-icon.svg"} width={24} height={24} />
-          <Image alt="" src={"/icons/twitter-icon.svg"} width={24} height={24} />
-          <Image alt="" src={"/icons/insta-icon.svg"} width={24} height={24} />
+        <div className="flex items-center justify-between  w-full">
+          <div className="space-y-6">
+            <div className="flex flex-wrap justify-center items-center gap-4">
+              <Image alt="" src={"/icons/fb-icon.svg"} width={24} height={24} />
+              <Image
+                alt=""
+                src={"/icons/twitter-icon.svg"}
+                width={24}
+                height={24}
+              />
+              <Image
+                alt=""
+                src={"/icons/insta-icon.svg"}
+                width={24}
+                height={24}
+              />
+            </div>
+            <p className="text-[#4A699C] text-base leading-normal text-center">
+              © 2022 BabyNames. All rights reserved.
+            </p>
+          </div>
+          <NewsletterForm />
         </div>
-        <p className="text-[#4A699C] text-base leading-normal text-center">
-          © 2022 BabyNames. All rights reserved.
-        </p>
       </div>
     </>
   );
