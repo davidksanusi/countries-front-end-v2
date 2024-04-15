@@ -54,8 +54,8 @@ export const FilterComponent = ({
   ];
 
   const sortCategoryOptions = data?.sort_options?.map((param) => ({
-    label: param.param_key,
-    value: param.param_value,
+    label: param.sort_title,
+    value: param.sort_key,
   }));
 
   const sortOrderOptions = [
@@ -199,7 +199,8 @@ export const FilterComponent = ({
       <div className="text-base font-medium items-center gap-2 flex bg-[#e8edf5] p-2 rounded-[8px]">
         Sort by:
         <Select
-          className="min-w-[120px] bg-[#e5e5e5] rounded-xl"
+          showSearch
+          className="min-w-[200px] bg-[#e5e5e5] rounded-xl"
           onChange={(value) => handleSelectValue("sort_category", value)}
           options={sortCategoryOptions}
           variant="filled"
