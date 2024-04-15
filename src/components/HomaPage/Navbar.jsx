@@ -5,11 +5,7 @@ import "../../app/globals.css";
 import { AutocompleteSearch } from "./auto-complete";
 import { MobileNav } from "./mobile-nav";
 
-import allCountries from "@/all-countries.preval";
-
 const Navbar = async () => {
-  const countries = allCountries;
-
   return (
     <>
       <div className="flex justify-between items-center gap-6 px-4 md:px-6 lg:px-10 py-5 bg-white border-b border-[#E5E8EB]">
@@ -31,7 +27,7 @@ const Navbar = async () => {
           </div>
         </div>
         <div className="hidden lg:flex justify-center items-center gap-8">
-          <AutocompleteSearch countries={countries} />
+          <AutocompleteSearch />
 
           <div className="flex gap-2 justify-center itemes-center">
             <Button className="hover:bg-[#1C6EF2] bg-[#1C6EF2] rounded-lg hover:text-white text-white text-sm leading-normal font-medium hover:border-none border-none py-3 px-5 hover:outline-none outline-none h-10 flex justify-center items-center">
