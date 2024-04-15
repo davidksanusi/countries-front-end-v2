@@ -1,29 +1,7 @@
 import { unslugify } from "@/lib/utils";
 import { Empty } from "antd";
-import { unstable_cache } from "next/cache";
 
-async function fetchCountryData(slug) {
-  const response = await fetch(
-    "https://countries-backend-y8w2.onrender.com/api/post_country",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ code: slug }),
-    }
-  );
-
-  if (!response.ok) {
-    console.log("Failed to fetch data for country", slug);
-    return null;
-  }
-
-  const data = await response.json();
-  return data.data;
-}
-
-const cachedCountryData = unstable_cache(fetchCountryData);
+import countries from "../../../../countries.preval";
 
 export async function generateStaticParams() {
   const response = await fetch(
@@ -62,7 +40,8 @@ export const dynamic = "force-static";
 
 export default async function CountryPage({ params }) {
   const { name, section } = params;
-  const data = await cachedCountryData(name);
+
+  const data = countries[name];
 
   const sectionData = data?.content_pages?.find(
     (item) => item.title === unslugify(section)
