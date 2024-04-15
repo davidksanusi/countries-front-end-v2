@@ -1,6 +1,7 @@
-import { getCachedCountryData } from "@/lib/data";
 import { unslugify } from "@/lib/utils";
 import { Empty } from "antd";
+
+import countries from "../../../../countries.preval";
 
 export async function generateStaticParams() {
   const response = await fetch(
@@ -17,10 +18,10 @@ export async function generateStaticParams() {
 
   const sections = [
     "overview",
-    // "education",
-    // "economy",
-    // "demeographics",
-    // "environment",
+    "education",
+    "economy",
+    "demeographics",
+    "environment",
   ];
 
   for (const item of data.data) {
@@ -40,7 +41,7 @@ export const dynamic = "force-static";
 export default async function CountryPage({ params }) {
   const { name, section } = params;
 
-  const data = await getCachedCountryData(name);
+  const data = countries[name];
 
   const sectionData = data?.content_pages?.find(
     (item) => item.title === unslugify(section)

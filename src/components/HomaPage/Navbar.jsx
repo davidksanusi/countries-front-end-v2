@@ -1,4 +1,3 @@
-import { getCachedAllCountries } from "@/lib/data";
 import { Button } from "antd";
 import Image from "next/image";
 import Link from "next/link";
@@ -6,8 +5,10 @@ import "../../app/globals.css";
 import { AutocompleteSearch } from "./auto-complete";
 import { MobileNav } from "./mobile-nav";
 
+import allCountries from "@/all-countries.preval";
+
 const Navbar = async () => {
-  const countries = await getCachedAllCountries();
+  const countries = allCountries;
 
   return (
     <>

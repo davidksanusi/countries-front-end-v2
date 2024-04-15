@@ -1,7 +1,7 @@
 import { unstable_cache as cache } from "next/cache";
 import seedrandom from "seedrandom";
 
-async function getCountryData(name) {
+export async function getCountryData(name) {
   const response = await fetch(
     "https://countries-backend-y8w2.onrender.com/api/post_country",
     {
@@ -29,7 +29,7 @@ export const getCachedCountryData = cache(
   ["single-country"]
 );
 
-async function getAllCountries() {
+export async function getAllCountries() {
   const response = await fetch(
     "https://countries-backend-y8w2.onrender.com/api/search",
     {
@@ -55,8 +55,8 @@ export const getCachedAllCountries = cache(
   ["all-countries"]
 );
 
-export async function getRandomCountries(count, seed) {
-  const countries = await getCachedAllCountries();
+export async function getRandomCountries(count, seed, allCountries) {
+  const countries = allCountries || (await getCachedAllCountries());
 
   const rng = seedrandom(seed);
 
@@ -77,7 +77,7 @@ export async function getRandomCountries(count, seed) {
   return selectedCountries;
 }
 
-async function getFilters() {
+export async function getFilters() {
   const response = await fetch(
     "https://countries-backend-y8w2.onrender.com/api/get_filters",
     {
@@ -100,7 +100,7 @@ export const getCachedFilters = cache(
   ["filters"]
 );
 
-async function getCountries(slug) {
+export async function getFilteredCountries(slug) {
   const response = await fetch(
     "https://countries-backend-y8w2.onrender.com/api/filter_names",
     {

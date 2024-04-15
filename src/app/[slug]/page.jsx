@@ -1,5 +1,7 @@
 import HomaPage from "@/components/HomaPage";
-import { getCachedFilteredCountries, getCachedFilters } from "@/lib/data";
+import { getFilteredCountries } from "@/lib/data";
+
+import data from "../../filters.preval";
 
 export async function generateStaticParams() {
   const response = await fetch(
@@ -23,10 +25,9 @@ export const dynamicParams = true;
 
 export default async function Home({ params }) {
   const { slug } = params;
-  const [countries, filters] = await Promise.all([
-    getCachedFilteredCountries(slug),
-    getCachedFilters(),
-  ]);
+
+  const countries = await getFilteredCountries(slug);
+  const filters = data;
 
   return <HomaPage countries={countries} filters={filters} />;
 }

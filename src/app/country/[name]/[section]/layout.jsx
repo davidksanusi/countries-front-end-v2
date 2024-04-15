@@ -8,14 +8,18 @@ import Image from "next/image";
 import Link from "next/link";
 import "../../../globals.css";
 
-import { getCachedCountryData, getRandomCountries } from "@/lib/data";
+import allCountries from "../../../../all-countries.preval";
+import countries from "../../../../countries.preval";
+
+import { getRandomCountries } from "@/lib/data";
 
 export default async function CountryPageLayout({ params, children }) {
   const { name } = params;
 
-  const countryData = await getCachedCountryData(name);
+  // const countryData = await getCachedCountryData(name);
+  const countryData = countries[name];
 
-  const randomCountries = await getRandomCountries(5, name);
+  const randomCountries = await getRandomCountries(5, name, allCountries);
 
   const sections = countryData?.content_pages?.map((item) => ({
     title: item?.title,
