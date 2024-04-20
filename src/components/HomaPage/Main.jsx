@@ -220,7 +220,7 @@ const Main = ({ countriesData, filtersData }) => {
             initialFiltersData={filtersData}
           />
         </div>
-        <div className="px-2 md:px-2 lg:px-2 xl:px-2 grid grid-cols-5 mx-auto gap-5 ">
+        <div className="px-2 md:px-2 lg:px-2 xl:px-2 grid grid-cols-1 md:grid-cols-5 mx-auto gap-5 ">
           {/* Countries with pagination */}
           {loading ? (
             dummyBabies.map((_, index) => (

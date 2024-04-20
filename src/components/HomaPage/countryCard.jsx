@@ -1,4 +1,5 @@
 import { Skeleton } from "antd";
+import Image from "next/image";
 import Link from "next/link";
 
 const CountryCard = ({ country, loading }) => {
@@ -26,16 +27,16 @@ const CountryCard = ({ country, loading }) => {
           <div className="flex items-center gap-5">
             {" "}
             <div className="h-[56px] w-[56px] text-[48px] flex items-center ">
-              {country?.flag}
+              {country?.flag ? country?.flag : <Image src={country?.flag_svg} height={56} width={56} alt="" />}
             </div>
             <div className="flex flex-col justify-center">
               {" "}
               <p className="text-base  font-medium leading-normal text-black">
                 {country?.name}
               </p>
-              <p className="text-sm font-medium leading-normal m-0 text-[#61788A] flex gap-2">
-                <span>Population : </span> <span>{country?.population}</span>
-              </p>
+              {country?.population && <p className="text-sm font-medium leading-normal m-0 text-[#61788A] flex gap-2">
+               <span>Population : </span> <span>{country?.population}</span>
+              </p>}
             </div>
           </div>
         </>
