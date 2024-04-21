@@ -12,6 +12,7 @@ import allCountries from "../../../../all-countries.preval";
 import countries from "../../../../countries.preval";
 
 import { getRandomCountries } from "@/lib/data";
+import CountryCard from "@/components/HomaPage/countryCard";
 
 export default async function CountryPageLayout({ params, children }) {
   const { name } = params;
@@ -20,7 +21,7 @@ export default async function CountryPageLayout({ params, children }) {
   const countryData = countries[name];
 
   const randomCountries = await getRandomCountries(5, name, allCountries);
-
+console.log('randomCountries',countryData)
   const sections = countryData?.content_pages?.map((item) => ({
     title: item?.title,
     slug: slugify(item?.title),
@@ -30,8 +31,8 @@ export default async function CountryPageLayout({ params, children }) {
     <>
       <Navbar />
       <div className="px-4 md:px-6 lg:px-24 xl:px-40 py-6 flex flex-col">
-        <p className="font-black leading-normal text-[#0D121C] text-4xl py-4">
-          {countryData?.name}
+        <p className="font-black leading-normal text-[#0D121C] text-4xl py-4 flex items-center gap-3">
+          {countryData?.name}{countryData?.flag_emoji}
         </p>
 
         <SectionNav sections={sections} />
@@ -68,13 +69,7 @@ export default async function CountryPageLayout({ params, children }) {
           </p>
           <div className="flex gap-3 justify-start items-center overflow-x-scroll noScrollBar w-full">
             {randomCountries?.map((item, index) => (
-              <Link
-                href={`/country/${item.code}/overview`}
-                key={index}
-                className=" cursor-pointer h-[99px] rounded-xl flex justify-center items-center underline p-6 text-4xl font-bold leading-normal text-white bg-gradient-to-r from-[#383838] to-[#928F8F]"
-              >
-                {item.name}
-              </Link>
+              <CountryCard country={item} />
             ))}
           </div>
         </div>

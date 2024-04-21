@@ -3,6 +3,7 @@
 import Link from "next/link";
 
 export function Categories({ similar_query }) {
+  console.log('similar_query',similar_query)
   return (
     <div className="flex flex-col gap-3 py-3 justify-start items-start w-full">
       <p className="text-2xl font-bold leading-normal text-[#0D121C]">

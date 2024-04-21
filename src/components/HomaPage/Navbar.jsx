@@ -21,22 +21,22 @@ const Navbar = async () => {
             />
           </Link>
           <div className="hidden lg:flex gap-8 justify-center items-center">
-            <a className="text-[#0D121C] text-sm leading-normal">Home</a>
-            <a className="text-[#0D121C] text-sm leading-normal">Featured</a>
-            <a className="text-[#0D121C] text-sm leading-normal">Recent</a>
+          <Link href="/"
+ className="text-[#0D121C] text-sm leading-normal">Home</Link>
+          
           </div>
         </div>
         <div className="hidden lg:flex justify-center items-center gap-8">
           <AutocompleteSearch />
 
-          <div className="flex gap-2 justify-center itemes-center">
+          {/* <div className="flex gap-2 justify-center itemes-center">
             <Button className="hover:bg-[#1C6EF2] bg-[#1C6EF2] rounded-lg hover:text-white text-white text-sm leading-normal font-medium hover:border-none border-none py-3 px-5 hover:outline-none outline-none h-10 flex justify-center items-center">
               Log in
             </Button>
             <Button className="hover:bg-[#E8EDF5] bg-[#E8EDF5] rounded-lg hover:text-[#0D121C] text-[#0D121C] text-sm leading-normal font-medium hover:border-none border-none py-3 px-5 hover:outline-none outline-none h-10 flex justify-center items-center">
               Sign up
             </Button>
-          </div>
+          </div> */}
         </div>
 
         <MobileNav />

@@ -1,5 +1,6 @@
 import { Button } from "antd";
 import Link from "next/link";
+import FeedbackForm from "../Feedback";
 
 const Feedback = () => {
   return (
@@ -14,9 +15,10 @@ const Feedback = () => {
             information.
           </p>
         </div>
-        <Button className="hover:bg-[#1C6EF2] bg-[#1C6EF2] rounded-lg hover:text-white text-white text-sm leading-normal font-medium hover:border-none border-none py-3 px-5 hover:outline-none outline-none h-10 flex justify-center items-center">
+        <FeedbackForm/>
+        {/* <Button className="hover:bg-[#1C6EF2] bg-[#1C6EF2] rounded-lg hover:text-white text-white text-sm leading-normal font-medium hover:border-none border-none py-3 px-5 hover:outline-none outline-none h-10 flex justify-center items-center">
           <Link href="/feedback">Submit feedback</Link>
-        </Button>
+        </Button> */}
       </div>
     </>
   );

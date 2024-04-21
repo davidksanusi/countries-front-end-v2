@@ -15,9 +15,9 @@ const Footer = () => {
             Terms of Service
           </p>
         </div>
-        <div className="flex items-center justify-between  w-full">
+        <div className="flex-col-reverse md:flex  md:flex-row  items-end justify-between  w-full border-t border-[#E5E5E5] pt-5 bg-[#f7fafc]">
           <div className="space-y-6">
-            <div className="flex flex-wrap justify-center items-center gap-4">
+            <div className="flex flex-wrap justify-center items-center gap-5">
               <Image alt="" src={"/icons/fb-icon.svg"} width={24} height={24} />
               <Image
                 alt=""
@@ -33,7 +33,7 @@ const Footer = () => {
               />
             </div>
             <p className="text-[#4A699C] text-base leading-normal text-center">
-              © 2022 BabyNames. All rights reserved.
+              © 2022 Countries. All rights reserved.
             </p>
           </div>
           <NewsletterForm />

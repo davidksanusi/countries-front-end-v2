@@ -37,7 +37,7 @@ function FeedbackForm() {
   };
 
   return (
-    <div className="w-[32rem] mx-auto p-5 mt-[40px] flex flex-col gap-[12px] bg-[#f7fafc] flex-1">
+    <div className="md:w-[32rem] w-full mx-auto p-5 mt-[40px] flex flex-col gap-[12px] bg-[#f7fafc] flex-1">
       {contextHolder}
 
       <p className="text-2xl font-bold text-[#0D141C] ">Leave feedback</p>
